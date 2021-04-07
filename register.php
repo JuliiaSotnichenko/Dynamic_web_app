@@ -1,3 +1,28 @@
+<?php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +35,15 @@
     
 
 
+<form action="" method="POST">
+        <input type="email" name="email" placeholder="Email"><br>
 
+        <input type="password" name="password" placeholder="Password"><br>
+        <input type="first_name" name="first_name" placeholder="Enter your First name"><br>
+        <input type="last_name" name="last_name" placeholder="Enter your Last name"><br>
+
+        <input type="submit" name="login" value="Register">
+    </form>
 
 
 
