@@ -1,6 +1,5 @@
 <?php
 
-
 $errors = array();
 
 if (isset($_POST['btnReg'])) {
@@ -52,7 +51,6 @@ if (isset($_POST['btnReg'])) {
         echo 'Something went wrong inserting.';
     }
 }
-
 }
 
 
