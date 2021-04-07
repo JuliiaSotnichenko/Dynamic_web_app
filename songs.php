@@ -1,4 +1,4 @@
-
+ 
 
 <?php
 
@@ -8,16 +8,16 @@ $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
 
 if ($conn){
     // $query = 'SELECT * FROM artists';
-    $query = 'SELECT * FROM artists ORDER BY bio DESC';
+    $query = 'SELECT * FROM songs';
 
     $results = mysqli_query($conn, $query);
 
-    $artists = mysqli_fetch_all($results, MYSQLI_ASSOC);
+    $songs = mysqli_fetch_all($results, MYSQLI_ASSOC);
 
-    foreach ($artists as $artist) {
+    foreach ($songs as $song) {
       echo '<br>';
-      echo 'Name : ' . $artist['name'] . '<br>';
-      echo 'Bio : '  . substr($artist['bio'], 0, 20) . '<br>' . '<br>';
+      echo 'Name : ' . $song['title'] . '<br>';
+      echo 'Release Date : '  . $song['release_date'] . '<br>' . '<br>';
 
       echo '<hr>';
     }
