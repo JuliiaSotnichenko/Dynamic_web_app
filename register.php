@@ -10,45 +10,50 @@ if (isset($_POST['btnReg'])) {
     $password = trim($_POST['password']);
     $sanitizeEmail = filter_var($mail, FILTER_SANITIZE_EMAIL);
 
-if (empty($firstName)) {
+    if (empty($firstName)) {
     $errors['first_name'] = 'First name is mandatory.<br>';
-}
+    }
 
-if (empty($lastName)) {
+    if (empty($lastName)) {
     $errors['last_name'] = 'Last name is mandatory.<br>';
-}
+    }
 
-if (!filter_var($sanitizeEmail, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($sanitizeEmail, FILTER_VALIDATE_EMAIL)) {
     $errors['email'] = 'Email has to be a valid one.<br>';
-}
+    }
 
-if (empty($password)) {
+    if (empty($password)) {
     $errors['password'] = 'Password is mandatory.<br>';
+    }
+
+        if (count($errors) == 0) {
+        include_once 'database.php';
+        $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
+
+    // check if email is already taken
+         $query = "SELECT * FROM users WHERE mail = '$sanitizeEmail'";
+
+         $resultMail = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($resultMail) > 0) {
+        $errors['email'] = 'Email already taken';
+
+        } else {
+        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+        // Insert to DB
+        $query = "INSERT INTO users(first_name, last_name, mail, password)
+        VALUES('$firstName', '$lastName ','$sanitizeEmail', '$hashPassword')";
+
+        $result = mysqli_query($conn, $query);
+
+        if ($result)
+        echo 'Insert successfull.';
+        else
+        echo 'Something went wrong inserting.';
+    }
 }
 
-
-if (count($errors)) == 0) {
-    
-    include_once 'database.php';
-    $conn = mysqli_connect(DB_SERVER, DB_USER, DB_PASSWORD, DB_NAME);
-
-
 }
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -69,7 +74,7 @@ if (count($errors)) == 0) {
     
 
 
-<form action="" method="POST">
+<form action="account.php" method="POST">
         <input type="email" name="email" placeholder="Enter your email"><br>
         <?php if (isset($errors['email'])) echo $errors['email'] ?>
 
